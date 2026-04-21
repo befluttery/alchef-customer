@@ -12,6 +12,7 @@ import 'package:alchef/features/address/view/screens/address_list_screen.dart';
 import 'package:alchef/features/cart/controller/cart_controller.dart';
 import 'package:alchef/features/cart/model/cart_model.dart';
 import 'package:alchef/features/cart/view/widgets/cart_item.dart';
+import 'package:alchef/features/cart/view/widgets/order_success_alert.dart';
 import 'package:alchef/features/coupon/view/coupon_list_screen.dart';
 import 'package:alchef/routes/route_paths.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final isOrderPlaced = await controller.reviewAndPlaceOrder();
 
     if (mounted && isOrderPlaced) {
-      context.go(RoutePaths.orders);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => OrderSuccessAlert(),
+      );
     }
   }
 

@@ -33,6 +33,7 @@ class AppImages {
 
   //CART
   static const String marker = '$_base/marker.png';
+  static const String success = '$_base/success.png';
 
   //COUPON
   static const String percentageIcon = '$_base/percentage_icon.png';
