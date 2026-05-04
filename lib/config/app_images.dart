@@ -46,4 +46,7 @@ class AppImages {
   static const String smNotification = '$_base/sm_notification.png';
   static const String smHelp = '$_base/sm_help.png';
   static const String smLogout = '$_base/sm_logout.png';
+
+  //NOTIFICATION
+  static const String notificationBell = '$_base/notification_bell.png';
 }

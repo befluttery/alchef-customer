@@ -166,3 +166,21 @@ class Marianation {
   factory Marianation.fromJson(Map<String, dynamic> json) =>
       _$MarianationFromJson(json);
 }
+
+@JsonSerializable(createFactory: false, includeIfNull: false)
+class SearchProductsRequest {
+  @JsonKey(name: 'user_id')
+  final int userId;
+
+  @JsonKey(name: 'pag_no')
+  final int pageNo;
+  final String keyword;
+
+  SearchProductsRequest({
+    required this.userId,
+    required this.pageNo,
+    required this.keyword,
+  });
+
+  Map<String, dynamic> toJson() => _$SearchProductsRequestToJson(this);
+}

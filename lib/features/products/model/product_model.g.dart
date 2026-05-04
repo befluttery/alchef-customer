@@ -73,3 +73,11 @@ Marianation _$MarianationFromJson(Map<String, dynamic> json) => Marianation(
   name: json['name'] as String? ?? '',
   description: json['description'] as String? ?? '',
 );
+
+Map<String, dynamic> _$SearchProductsRequestToJson(
+  SearchProductsRequest instance,
+) => <String, dynamic>{
+  'user_id': instance.userId,
+  'pag_no': instance.pageNo,
+  'keyword': instance.keyword,
+};

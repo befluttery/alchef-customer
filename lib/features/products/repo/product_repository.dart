@@ -26,4 +26,17 @@ class ProductRepository {
         .map((e) => Product.fromJson(e))
         .toList();
   }
+
+  static Future<List<Product>> searchProducts(
+    SearchProductsRequest request,
+  ) async {
+    final response = await _apiClient.post(
+      url: ApiEndpoints.searchProducts,
+      data: request.toJson(),
+    );
+
+    return (response.data['data'] as List)
+        .map((e) => Product.fromJson(e))
+        .toList();
+  }
 }

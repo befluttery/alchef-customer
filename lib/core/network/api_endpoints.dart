@@ -23,9 +23,13 @@ class ApiEndpoints {
   //<-------------------------- CATEGORIES -------------------------->
   static const String categories = 'categories_list';
 
+  //<-------------------------- NOTIFICATIONS -------------------------->
+  static const String notifications = 'user_notifications';
+
   //<-------------------------- PRODUCTS -------------------------->
   static const String products = 'products';
   static const String productDetail = 'product-detalis';
+  static const String searchProducts = 'search/updated';
 
   //<-------------------------- COUPONS -------------------------->
   static const String coupons = 'show/coupons';

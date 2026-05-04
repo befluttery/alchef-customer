@@ -203,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       () => CustomButton(
                         isLoading: controller.isLoading.value,
                         onPressed: _onLogin,
-                        text: 'Login',
+                        text: 'Login / Sign up',
                       ),
                     ),
 

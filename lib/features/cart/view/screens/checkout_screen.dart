@@ -474,7 +474,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   SizedBox(height: 4),
 
                                   Text(
-                                    '*inclusive of GST',
+                                    '*inclusive of VAT',
                                     style: Theme.of(context).textTheme.bodySmall
                                         ?.copyWith(
                                           color: Colors.black,

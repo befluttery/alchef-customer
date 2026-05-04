@@ -239,7 +239,7 @@ class CartController extends GetxController {
         shippingMethod: 1,
         cartId: cartResponse!.carttotal.id,
         userAddressId: selectedAddress?.id ?? 0,
-        deliverySlotId: 0,
+        deliverySlotId: selectedSlotId.value ?? 0,
         deliveryDate: DateHelper.formatString(DateTime.now()),
         deliveryInfo: '',
         couponId: calculationData.coupon?.id,

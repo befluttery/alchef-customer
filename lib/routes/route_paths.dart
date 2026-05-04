@@ -20,6 +20,13 @@ class RoutePaths {
   // Product
   static const String categoryProducts = '/dashboard/category-products';
   static const String productDetail = '/product-detail';
+  static const String searchProduct = '/search-product';
+
+  // Address
+  static const String addressList = '/address-list';
+
+  // Notifications
+  static const String notifications = '/notifications';
 
   //coupons
   static const String coupons = '/coupons';

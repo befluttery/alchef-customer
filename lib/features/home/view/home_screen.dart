@@ -17,6 +17,7 @@ import 'package:alchef/routes/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -64,85 +65,129 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottomLeft: Radius.circular(32),
                 ),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      _scaffoldKey.currentState?.openDrawer();
-                    },
-                    child: Stack(
-                      children: [
-                        SizedBox(height: 56, width: 44),
-                        Positioned(
-                          top: 0,
-                          child: Center(
-                            child: Image.asset(
-                              AppImages.hat,
-                              height: s.avatarSm + 2,
-                              width: s.avatarSm + 8,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          child: Center(
-                            child: OnlineImage(
-                              link: AuthHelper.user.isUserImage,
-                              height: s.avatarSm + 8,
-                              width: s.avatarSm + 8,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome, ${AuthHelper.user.firstName}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: s.fontMd,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: s.spacingXs),
-                        Row(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          _scaffoldKey.currentState?.openDrawer();
+                        },
+                        child: Stack(
                           children: [
-                            Image.asset(
-                              AppImages.locationIcon,
-                              height: s.iconSm,
+                            SizedBox(height: 56, width: 44),
+                            Positioned(
+                              top: 0,
+                              child: Center(
+                                child: Image.asset(
+                                  AppImages.hat,
+                                  height: s.avatarSm + 2,
+                                  width: s.avatarSm + 8,
+                                ),
+                              ),
                             ),
-                            SizedBox(width: s.spacingXs),
-                            Text(
-                              AuthHelper.user.userDefaultAddress?.address ?? '',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: s.fontSm,
-                                fontWeight: FontWeight.w400,
+                            Positioned(
+                              bottom: 0,
+                              child: Center(
+                                child: OnlineImage(
+                                  link: AuthHelper.user.isUserImage,
+                                  height: s.avatarSm + 8,
+                                  width: s.avatarSm + 8,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
 
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome, ${AuthHelper.user.firstName}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: s.fontMd,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: s.spacingXs),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AppImages.locationIcon,
+                                  height: s.iconSm,
+                                ),
+                                SizedBox(width: s.spacingXs),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () {
+                                    context.push(RoutePaths.addressList);
+                                  },
+                                  child: Text(
+                                    AuthHelper
+                                            .user
+                                            .userDefaultAddress
+                                            ?.address ??
+                                        '',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: s.fontSm,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      InkWell(
+                        onTap: () {
+                          context.push(RoutePaths.notifications);
+                        },
+                        child: Image.asset(
+                          AppImages.notificationIcon,
+                          height: s.iconLg,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: s.spacingSm),
                   InkWell(
-                    onDoubleTap: () {
-                      UiHelper.showSnackbar('Coming soon');
+                    onTap: () {
+                      context.push(RoutePaths.searchProduct);
                     },
-                    child: Image.asset(
-                      AppImages.notificationIcon,
-                      height: s.iconLg,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: s.spacingMd,
+                        vertical: s.spacingSm + 4,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(AppImages.searchIcon, height: s.iconSm),
+                          SizedBox(width: s.spacingMd),
+                          Text(
+                            'Search Items...',
+                            style: TextStyle(
+                              fontSize: s.fontSm,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+                  SizedBox(height: s.spacingXs),
                 ],
               ),
             ),
@@ -225,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (controller.categoriesError != null)
                             ErrorContent(
                               message: controller.categoriesError,
-                              onRetry: controller.fetchBanners,
+                              onRetry: controller.fetchCategories,
                             )
                           else
                             CategoryHorizontalList(

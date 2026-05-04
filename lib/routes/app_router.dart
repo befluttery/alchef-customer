@@ -1,3 +1,4 @@
+import 'package:alchef/features/address/view/screens/address_list_screen.dart';
 import 'package:alchef/features/auth/view/screens/login_screen.dart';
 import 'package:alchef/features/auth/view/screens/otp_screen.dart';
 import 'package:alchef/features/auth/view/screens/update_profile_screen.dart';
@@ -6,9 +7,11 @@ import 'package:alchef/features/cart/view/screens/checkout_screen.dart';
 import 'package:alchef/features/coupon/view/coupon_list_screen.dart';
 import 'package:alchef/features/dashboard/dashboard_screen.dart';
 import 'package:alchef/features/home/view/home_screen.dart';
+import 'package:alchef/features/notification/view/notification_screen.dart';
 import 'package:alchef/features/orders/view/order_list_screen.dart';
 import 'package:alchef/features/products/view/screens/category_products_screen.dart';
 import 'package:alchef/features/products/view/screens/product_detail_screen.dart';
+import 'package:alchef/features/products/view/screens/search_products_screen.dart';
 import 'package:alchef/features/profile/view/profile_screen.dart';
 import 'package:alchef/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +83,29 @@ final appRouter = GoRouter(
     ),
 
     //
+    GoRoute(
+      path: RoutePaths.notifications,
+      builder: (context, state) {
+        return const NotificationScreen();
+      },
+    ),
+
+    //
+    GoRoute(
+      path: RoutePaths.addressList,
+      builder: (context, state) {
+        return const AddressListScreen();
+      },
+    ),
+
+    //
+    GoRoute(
+      path: RoutePaths.searchProduct,
+      builder: (context, state) {
+        return const SearchProductsScreen();
+      },
+    ),
+
     GoRoute(
       path: RoutePaths.productDetail,
       builder: (context, state) {

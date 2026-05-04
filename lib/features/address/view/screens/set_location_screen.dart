@@ -34,6 +34,11 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 
   @override
   void initState() {
+    initialize();
+    super.initState();
+  }
+
+  Future<void> initialize() async {
     if (widget.userAddress != null) {
       controller.addressController.text = widget.userAddress!.address;
       controller.location.value = LatLng(
@@ -43,11 +48,20 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
       controller.cityController.text = widget.userAddress!.city;
       controller.buildingNameController.text = widget.userAddress!.streetFlat;
       controller.selectedAddressType.value = widget.userAddress!.addressName;
+      await controller.fetchEmirates();
+      if (controller.emirates.isNotEmpty) {
+        final emirate = controller.emirates.firstWhereOrNull(
+          (element) => element.id == widget.userAddress!.emirateId,
+        );
+        if (emirate != null) {
+          controller.selectedEmirateId.value = widget.userAddress!.emirateId;
+        }
+      }
+      setState(() {});
     } else {
       controller.fetchEmirates();
       controller.checkLocationPermissions();
     }
-    super.initState();
   }
 
   List<AddressTypeModel> addressTypes = [
@@ -73,7 +87,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
       if (widget.fromSignup) {
         final request = AddAddressRequest(
           userId: AuthHelper.userId,
-
+          addressId: null,
           addressName: controller.selectedAddressType.value,
           address: controller.addressController.text.trim(),
           streetFlat: controller.buildingNameController.text.trim(),
@@ -85,9 +99,12 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
         Navigator.pop(context, request);
       } else {
         if (widget.userAddress != null) {
-          // controller.handleEditAddress(
-          //   addressId: widget.userAddress?.id,
-          // );
+          final success = await controller.handleEditAddress(
+            addressId: widget.userAddress?.id,
+          );
+          if (success && mounted) {
+            Navigator.pop(context);
+          }
         } else {
           final success = await controller.handleAddAddress();
           if (success && mounted) {
@@ -282,6 +299,8 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                   ),
                                   SizedBox(height: s.spacingXs),
                                   DropdownButtonFormField(
+                                    value: controller.selectedEmirateId.value,
+                                    isExpanded: true,
                                     decoration: InputDecoration(
                                       hintText: 'Select emirate',
                                     ),

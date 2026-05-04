@@ -97,6 +97,7 @@ class AddressController extends GetxController {
         UiHelper.showLoadingDialog();
         final input = AddAddressRequest(
           userId: AuthHelper.userId,
+          addressId: null,
           city: cityController.text.trim(),
           address: addressController.text.trim(),
           streetFlat: buildingNameController.text.trim(),
@@ -122,7 +123,36 @@ class AddressController extends GetxController {
     }
   }
 
-  Future<void> handleEditAddress({int? addressId}) async {
-    //
+  Future<bool> handleEditAddress({int? addressId}) async {
+    try {
+      UiHelper.unfocus();
+      if (formKey.currentState?.validate() == true) {
+        UiHelper.showLoadingDialog();
+        final input = AddAddressRequest(
+          userId: AuthHelper.userId,
+          addressId: addressId,
+          city: cityController.text.trim(),
+          address: addressController.text.trim(),
+          streetFlat: buildingNameController.text.trim(),
+          latitude: location.value?.latitude.toString() ?? '',
+          longitude: location.value?.longitude.toString() ?? '',
+          emirateId: selectedEmirateId.value ?? 0,
+          addressName: selectedAddressType.value,
+        );
+
+        final result = await AddressRepository.addAddress(input);
+
+        if (result.isNotEmpty) {
+          UiHelper.showToast(result);
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      UiHelper.showErrorMessage(e);
+      return false;
+    } finally {
+      UiHelper.closeLoadingDialog();
+    }
   }
 }

@@ -53,7 +53,7 @@ class LogoutDialog extends StatelessWidget {
                 // Cancel Button
                 Expanded(
                   child: TextButton(
-                    onPressed: () => Get.back(),
+                    onPressed: () => Navigator.pop(context),
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(

@@ -30,6 +30,9 @@ class Address {
   @JsonKey(name: "street_flat", defaultValue: "")
   final String streetFlat;
 
+  @JsonKey(name: "emirate_id")
+  final int? emirateId;
+
   @JsonKey(name: "is_default", defaultValue: 0)
   int isDefault;
 
@@ -43,6 +46,7 @@ class Address {
     required this.latitude,
     required this.longitude,
     required this.streetFlat,
+    required this.emirateId,
     required this.isDefault,
   });
 
@@ -117,6 +121,9 @@ class EditAddressRequest {
 class AddAddressRequest {
   final int userId;
 
+  @JsonKey(name: "user_address_id")
+  final int? addressId;
+
   @JsonKey(name: "address_name", defaultValue: "")
   final String addressName;
 
@@ -142,6 +149,7 @@ class AddAddressRequest {
 
   AddAddressRequest({
     required this.userId,
+    required this.addressId,
     required this.addressName,
     required this.address,
     required this.streetFlat,

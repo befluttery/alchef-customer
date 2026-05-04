@@ -30,14 +30,13 @@ class _AddressListScreenState extends State<AddressListScreen> {
     super.initState();
   }
 
-  void _goToAddLocation() async {
+  void _addLocation() async {
     await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const SetLocationScreen(fromSignup: false),
       ),
     );
-
     controller.fetchAddresses();
   }
 
@@ -113,6 +112,22 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         ],
                       ),
                     ),
+
+                    IconButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SetLocationScreen(
+                              fromSignup: false,
+                              userAddress: address,
+                            ),
+                          ),
+                        );
+                        controller.fetchAddresses();
+                      },
+                      icon: Icon(Icons.edit, color: AppColors.primary),
+                    ),
                   ],
                 ),
               ),
@@ -121,7 +136,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: _goToAddLocation,
+        onPressed: _addLocation,
         child: const Icon(Icons.add),
       ),
     );

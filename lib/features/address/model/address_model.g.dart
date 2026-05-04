@@ -14,6 +14,7 @@ Address _$AddressFromJson(Map<String, dynamic> json) => Address(
   latitude: json['latitude'] as String? ?? '',
   longitude: json['longitude'] as String? ?? '',
   streetFlat: json['street_flat'] as String? ?? '',
+  emirateId: (json['emirate_id'] as num?)?.toInt(),
   isDefault: (json['is_default'] as num?)?.toInt() ?? 0,
 );
 
@@ -25,6 +26,7 @@ Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
   'latitude': instance.latitude,
   'longitude': instance.longitude,
   'street_flat': instance.streetFlat,
+  'emirate_id': ?instance.emirateId,
   'is_default': instance.isDefault,
 };
 
@@ -46,6 +48,7 @@ Map<String, dynamic> _$EditAddressRequestToJson(EditAddressRequest instance) =>
 Map<String, dynamic> _$AddAddressRequestToJson(AddAddressRequest instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
+      'user_address_id': ?instance.addressId,
       'address_name': instance.addressName,
       'street_flat': instance.streetFlat,
       'address': instance.address,
